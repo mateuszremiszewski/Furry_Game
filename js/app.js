@@ -1,7 +1,7 @@
 function Furry (){
-   this.x = 0;
-   this.y = 0;
-   this.direction = 'right';
+    this.x = 0;
+    this.y = 0;
+    this.direction = 'right';
 
 }
 
@@ -31,22 +31,24 @@ function Game() {
 
 
     this.moveFurry = function() {
-        this.gameOver();
-        this.hideVisibleFurry();
+
 
         if(this.furry.direction === "right") {
             this.furry.x = this.furry.x + 1;
-            } else if (this.furry.direction === "left"){
-                this.furry.x = this.furry.x -1;
-            } else if (this.furry.direction === "up"){
-                this.furry.y = this.furry.y - 1;
-            } else if (this.furry.direction === "down"){
-                this.furry.y = this.furry.y  + 1;
+        } else if (this.furry.direction === "left"){
+            this.furry.x = this.furry.x -1;
+        } else if (this.furry.direction === "up"){
+            this.furry.y = this.furry.y - 1;
+        } else if (this.furry.direction === "down"){
+            this.furry.y = this.furry.y  + 1;
         }
 
-        this.showFurry();
-        this.checkCoinCollision();
-        // return this.gameOver();
+        if(!this.gameOver()){
+            this.gameOver();
+            this.hideVisibleFurry();
+            this.showFurry();
+            this.checkCoinCollision();
+        }
     };
 
     this.hideVisibleFurry = function () {
@@ -73,7 +75,7 @@ function Game() {
                 break;
         }
     };
-    
+
     this.checkCoinCollision = function () {
 
         if(this.furry.x === this.coin.x && this.furry.y === this.coin.y){
@@ -96,8 +98,10 @@ function Game() {
             this.hideVisibleFurry();
             clearInterval(this.idSetInterval);
             alert('GAME OVER YOUR SCORE =' + this.score);
+            return true;
 
         }
+        return false;
     };
 
     this.startGame = function () {
@@ -123,4 +127,3 @@ var game = new Game;
 game.showFurry();
 game.showCoin();
 game.startGame();
-
